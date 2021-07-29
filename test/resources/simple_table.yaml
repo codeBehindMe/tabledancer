@@ -1,0 +1,24 @@
+# Note: All keys must be snake case unless noted otherwise.
+&name: simple_table  # Required
+backend: Databricks # Required
+database_name: myproject # Required
+life_cycle_policy:  # Required
+  policy: DropCreateOnSchemaChange # Required
+  properties: None # Optional
+table_spec: # Required
+  name: *name # Required
+  comment: # Required
+  columns: # Required 
+    - featureOne:  # Required  # Does not need to be snake case.
+        type: int # Required
+        comment: aComment # Optional
+    - featureTwo:  # Required
+        type: string # Required
+        comment: anotherComment # Optional
+  using: DELTA # Optional
+  partitions: # Optional
+    - featureOne
+  location: /path/to/my/table # Optional
+  options: # Optional
+    - key1=val1  # Required
+  
