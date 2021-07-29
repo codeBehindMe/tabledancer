@@ -4,6 +4,7 @@ from abc import ABCMeta, abstractmethod
 from typing import Any, List
 
 
+# FIXME [Aaron]: Mark as interface?
 class TableSpec(metaclass=ABCMeta):
     def __init__(self, name: str, columns: List[Any]) -> None:
         self.name = name
