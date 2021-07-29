@@ -3,7 +3,7 @@ backend: Databricks # Required
 database_name: myproject # Required
 life_cycle_policy:  # Required
   policy: DropCreateOnSchemaChange # Required
-  properties: None # Optional
+  properties: null # Optional
 table_spec: # Required
   name: simple_table # Required
   comment: # Required
