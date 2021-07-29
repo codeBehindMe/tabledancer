@@ -1,12 +1,11 @@
 # Note: All keys must be snake case unless noted otherwise.
-&name: simple_table  # Required
 backend: Databricks # Required
 database_name: myproject # Required
 life_cycle_policy:  # Required
   policy: DropCreateOnSchemaChange # Required
   properties: None # Optional
 table_spec: # Required
-  name: *name # Required
+  name: simple_table # Required
   comment: # Required
   columns: # Required 
     - featureOne:  # Required  # Does not need to be snake case.
