@@ -1,5 +1,3 @@
-from abc import ABCMeta, abstractmethod
-from enum import Enum
 from typing import Any, Dict
 
 
@@ -79,23 +77,8 @@ class EvolveOnSchemaChange(LifeCyclePolicy):
         return super().get_properties()
 
 
-class LifeCyclePolicies(Enum):
-    """Specifies the lifcycle spec for a table.
-
-    A LifeCyclePolicy defines which action to take should there be a change in the
-    schema for a table i.e. how to manage the lifecyle of the table.
-
-    Lifecycles
-    ----------
-
-    DropCreateOnSchemaChange: This lifecycle policy will drop the table should
-    be a change between the schema that is in the plugin and recreate it.
-
-
-    Args:
-        Enum (int): Specify the table lifecycle specification.
-    """
-
-    DropCreateOnSchemaChange = 0
-    RaiseErrorOnSchemaChange = 1
-    EvolveOnSchemaChange = 2
+life_cycle_policies = {
+    DropCreateOnSchemaChange.__name__: DropCreateOnSchemaChange,
+    ErrorOnSchemaChange.__name__: ErrorOnSchemaChange,
+    EvolveOnSchemaChange.__name__: EvolveOnSchemaChange,
+}
