@@ -1,9 +1,11 @@
-from os import path, truncate
+from typing import Any, Dict
 
 import yaml
 
 
-def read_yaml_file(path_to_yaml_file: str, allow_unsafe: bool = False):
+def read_yaml_file(
+    path_to_yaml_file: str, allow_unsafe: bool = False
+) -> Dict[str, Any]:
     """Loads a yaml file to a dictionary from disk.
 
     Args:
@@ -12,7 +14,7 @@ def read_yaml_file(path_to_yaml_file: str, allow_unsafe: bool = False):
           tags. Defaults to False.
 
     Returns:
-        [type]: [description]
+        Dict[str,Any]: Dictionary with the YAML file contents.
     """
 
     with open(path_to_yaml_file, "r") as f:
