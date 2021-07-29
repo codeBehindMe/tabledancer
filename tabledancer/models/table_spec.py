@@ -1,0 +1,14 @@
+from __future__ import annotations
+
+from abc import ABCMeta, abstractmethod
+from typing import Any, List
+
+
+class TableSpec(metaclass=ABCMeta):
+    def __init__(self, name: str, columns: List[Any]) -> None:
+        self.name = name
+        self.columns = columns
+
+    @abstractmethod
+    def diff(other: TableSpec) -> Any:
+        pass
