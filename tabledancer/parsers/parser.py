@@ -19,7 +19,7 @@ class Parser:
             life_cycle_spec_dict["life_cycle_policy"]
         )
         life_cycle_spec_dict["table_spec"] = self._parse_table_spec_dict(
-            life_cycle_spec_dict["table_spec"], self.dancer
+            life_cycle_spec_dict["table_spec"]
         )
         return LifeCycleSpec(**life_cycle_spec_dict)
 
@@ -36,8 +36,6 @@ class Parser:
             return life_cycle_policies[policy_name](**policy_properties)
         return life_cycle_policies[policy_name]()
 
-    def _parse_table_spec_dict(
-        self, table_spec_dict: Dict[str, Any], dancer: IDancer
-    ) -> TableSpec:
+    def _parse_table_spec_dict(self, table_spec_dict: Dict[str, Any]) -> TableSpec:
 
-        return dancer.parse_table_spec(table_spec_dict)
+        return self.dancer.parse_table_spec(table_spec_dict)
