@@ -3,7 +3,7 @@ from os import path, truncate
 import yaml
 
 
-def read_yaml(path_to_yaml_file: str, allow_unsafe: bool = False):
+def read_yaml_file(path_to_yaml_file: str, allow_unsafe: bool = False):
     """Loads a yaml file to a dictionary from disk.
 
     Args:

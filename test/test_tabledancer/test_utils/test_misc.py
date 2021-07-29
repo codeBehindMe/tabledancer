@@ -2,7 +2,7 @@ from typing import Dict
 
 import pytest
 
-from tabledancer.utils.misc import read_yaml
+from tabledancer.utils.misc import read_yaml_file
 
 
 @pytest.fixture(scope="class")
@@ -19,4 +19,4 @@ class TestReadYaml:
             test_yaml_file_path (str): Path to the test yaml file.
         """
 
-        assert isinstance(read_yaml(test_yaml_file_path), Dict)
+        assert isinstance(read_yaml_file(test_yaml_file_path), Dict)
