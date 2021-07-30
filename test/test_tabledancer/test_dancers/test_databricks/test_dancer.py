@@ -5,11 +5,9 @@ import pytest
 from tabledancer.dancers.databricks.dancer import DatabricksDancer
 from tabledancer.models.table_spec import TableSpec
 from tabledancer.utils.misc import read_yaml_file
+from test.test_tabledancer.test_dancers.test_databricks._fixtures import db_table_spec_dict
 
 
-@pytest.fixture(scope="class")
-def db_table_spec_dict() -> Dict[str, Any]:
-    return read_yaml_file("test/resources/basic_db_table.yaml")["table_spec"]
 
 
 @pytest.mark.usefixtures("db_table_spec_dict")
