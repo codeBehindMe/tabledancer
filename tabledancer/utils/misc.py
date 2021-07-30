@@ -22,7 +22,8 @@ def read_yaml_file(
             return yaml.load(f)
         return yaml.safe_load(f)
 
-def is_none_or_empty_string(s : str) -> bool:
+
+def is_none_or_empty_string(s: str) -> bool:
     """Checks if a given string is None or just whitespace string.
 
     Args:
