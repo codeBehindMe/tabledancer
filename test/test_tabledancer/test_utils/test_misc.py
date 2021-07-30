@@ -3,6 +3,7 @@ from typing import Dict
 import pytest
 
 from tabledancer.utils.misc import read_yaml_file
+from tabledancer.utils.misc import is_none_or_empty_string
 
 
 @pytest.fixture(scope="class")
@@ -20,3 +21,27 @@ class TestReadYaml:
         """
 
         assert isinstance(read_yaml_file(test_yaml_file_path), Dict)
+
+
+class TestIsNoneOrEmptyString:
+
+  def test_empty_string_returns_true(self):
+    """
+    Checks that empty string returns true.
+    """
+
+    assert is_none_or_empty_string("            ") is True
+
+  def test_none_returns_true(self):
+    """
+    Checks that None returns true.
+    """
+    
+    assert is_none_or_empty_string(None) is True
+
+
+  def test_valid_string_returns_false(self):
+    """
+    Checks that valid strings return false.
+    """
+    assert is_none_or_empty_string("this is a valid string ") is False

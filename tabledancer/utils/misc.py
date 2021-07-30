@@ -21,3 +21,19 @@ def read_yaml_file(
         if allow_unsafe is True:
             return yaml.load(f)
         return yaml.safe_load(f)
+
+def is_none_or_empty_string(s : str) -> bool:
+    """Checks if a given string is None or just whitespace string.
+
+    Args:
+        s (str): String to check
+
+    Returns:
+        bool: True if s is None or whitespace, else False.
+    """
+
+    if s is None:
+        return True
+    if len(s.strip()) == 0:
+        return True
+    return False
