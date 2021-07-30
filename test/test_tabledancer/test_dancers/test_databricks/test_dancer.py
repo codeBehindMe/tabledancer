@@ -1,3 +1,5 @@
+from test.test_tabledancer.test_dancers.test_databricks._fixtures import \
+    db_table_spec_dict
 from typing import Any, Dict
 
 import pytest
@@ -5,9 +7,6 @@ import pytest
 from tabledancer.dancers.databricks.dancer import DatabricksDancer
 from tabledancer.models.table_spec import TableSpec
 from tabledancer.utils.misc import read_yaml_file
-from test.test_tabledancer.test_dancers.test_databricks._fixtures import db_table_spec_dict
-
-
 
 
 @pytest.mark.usefixtures("db_table_spec_dict")
