@@ -4,11 +4,6 @@ from tabledancer.dancers.dancer import IDancer
 from tabledancer.models.table_spec import TableSpec
 
 
-class DatabricksTableSpec(TableSpec):
-    def __init__(self, name: str, columns: List[Any]) -> None:
-        super().__init__(name, columns)
-
-
 class DatabricksDancer(IDancer):
     def __init__(
         self, workspace_id: str, token: str, cluster_id: str, port: str

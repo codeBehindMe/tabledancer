@@ -1,4 +1,5 @@
 from typing import Any, Dict
+
 from tabledancer.models.lifecycle_policy import LifeCyclePolicy
 from tabledancer.models.table_spec import TableSpec
 
@@ -9,7 +10,7 @@ class LifeCycleSpec:
         backend: str,
         database_name: str,
         life_cycle_policy: LifeCyclePolicy,
-        table_spec: TableSpec
+        table_spec: TableSpec,
     ) -> None:
 
         self.backend = backend
