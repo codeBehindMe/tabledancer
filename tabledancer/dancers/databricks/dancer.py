@@ -15,5 +15,4 @@ class DatabricksDancer(IDancer):
         pass
 
     def parse_table_spec(self, table_spec_dict: Dict[str, Any]) -> TableSpec:
-
-        return DatabricksTableSpec(None, None)
+        return DatabricksTableSpec(**table_spec_dict)
