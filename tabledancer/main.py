@@ -19,7 +19,7 @@ def _databricks_dancer_handler(**kwargs) -> DatabricksDancer:
 dancers = {"databricks": _databricks_dancer_handler}
 
 
-class DanceClass: # FIXME: Update class name to studio
+class DanceStudio: 
     def dance(self, path_to_spec: str, dancer: IDancer, **kwargs):
         # FIXME: Docstring
         dance_runner = dancers[dancer](**kwargs)
@@ -27,4 +27,4 @@ class DanceClass: # FIXME: Update class name to studio
 
 def app():
     # FIXME: Docstring
-    return Fire(DanceClass)
+    return Fire(DanceStudio)
