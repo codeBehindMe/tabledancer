@@ -1,5 +1,5 @@
 import re
-from typing import Optional
+from typing import Any, List, Optional
 
 from tabledancer.dancers.databricks.table_spec import DatabricksTableSpec
 
@@ -32,6 +32,10 @@ class DatabricksDDLParser:
         if table_search:
             return table_search.group(1)
         raise ValueError("could not extract table name")
+
+    def _get_columns(self) -> List[Any]:
+      # FIXME: Docstring
+      pass
 
     def _find_ddl_definition_style(self, ddl: str):
         # FIXME: Docstring
