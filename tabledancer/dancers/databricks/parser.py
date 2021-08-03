@@ -27,6 +27,7 @@ class DatabricksDDLParser:
         raise ValueError("Could not extract db name")
 
     def _get_table_name(self) -> str:
+        # FIXME: Docstring
         table_search = re.search("(?<=\.`)(.*)(?=` \()", self.ddl, re.IGNORECASE)
         if table_search:
             return table_search.group(1)
