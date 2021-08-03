@@ -18,3 +18,8 @@ class IDancer(metaclass=ABCMeta):
     def parse_table_spec(self, table_spec_dict: Dict[str, Any]) -> TableSpec:
         # FIXME: Docstring
         pass
+
+    @abstractmethod
+    def get_table_ddl_from_backend(self, table_spec: TableSpec) -> str:
+        # FIXME: Docstring
+        pass

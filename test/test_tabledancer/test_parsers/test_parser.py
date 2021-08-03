@@ -32,6 +32,9 @@ def dummy_dancer() -> IDancer:
         def parse_table_spec(self, table_spec_dict: Dict[str, Any]) -> TableSpec:
             return DummyTableSpec(table_spec_dict["name"], table_spec_dict["columns"])
 
+        def get_table_ddl_from_backend(self, table_spec: TableSpec) -> str:
+            return super().get_table_ddl_from_backend(table_spec)
+
     return DummyDancer()
 
 
