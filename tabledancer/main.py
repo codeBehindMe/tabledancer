@@ -4,7 +4,6 @@ from tabledancer.dancers.dancer import IDancer
 from tabledancer.dancers.databricks.dancer import DatabricksDancer
 
 
-
 def _databricks_dancer_handler(**kwargs) -> DatabricksDancer:
     try:
         host = kwargs["host"]
@@ -14,6 +13,7 @@ def _databricks_dancer_handler(**kwargs) -> DatabricksDancer:
         return DatabricksDancer(host, token, cluster_id, port)
     except KeyError as e:
         print(f"Must provide {e}")
+
 
 dancers = {"databricks": _databricks_dancer_handler}
 
