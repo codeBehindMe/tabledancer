@@ -13,5 +13,4 @@ class TestDatabricksDDLParser:
     def test_extract_database_name_gets_correct_db_name(self, simple_ddl: str):
         ddl_parser = DatabricksDDLParser(simple_ddl)
 
-        pass
-        # assert ddl_parser._get_database_name() == "gth_prediction"
+        assert ddl_parser._get_database_name() == "gth_prediction"
