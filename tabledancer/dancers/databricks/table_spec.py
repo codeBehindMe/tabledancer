@@ -11,6 +11,7 @@ class DatabricksTableSpec(TableSpec):
     def __init__(
         self,
         name: str,
+        database: str,
         columns: List[Any],
         comment: Optional[str] = None,
         using: Optional[str] = None,
@@ -20,6 +21,7 @@ class DatabricksTableSpec(TableSpec):
     ) -> None:
     # FIXME: Docstring
         super().__init__(self._validate_name(name), columns)
+        self.database = database
         self.comment = comment
         self.using = using
         self.partitions = self._validate_partitions(partitions)

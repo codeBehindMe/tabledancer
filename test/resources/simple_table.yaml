@@ -1,6 +1,5 @@
 # Note: All keys must be snake case unless noted otherwise.
 backend: Databricks # Required
-database_name: myproject # Required
 life_cycle_policy:  # Required
   policy: DropCreateOnSchemaChange # Required
   properties: null # Optional

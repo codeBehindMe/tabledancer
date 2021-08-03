@@ -8,13 +8,11 @@ class LifeCycleSpec:
     def __init__(
         self,
         backend: str,
-        database_name: str,
         life_cycle_policy: LifeCyclePolicy,
         table_spec: TableSpec,
     ) -> None:
     # FIXME: Docstring
 
         self.backend = backend
-        self.database_name = database_name
         self.life_cycle_policy = life_cycle_policy
         self.table_spec = table_spec

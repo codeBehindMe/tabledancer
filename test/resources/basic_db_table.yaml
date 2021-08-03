@@ -1,10 +1,10 @@
 backend: databricks
-database_name: myproject
 life_cycle_policy:
   policy: DropCreateOnSchemaChange
   properties: null
 table_spec:
   name: simple_table
+  database: myproject
   comment: This is a simple table
   columns:
     - featureOne:
