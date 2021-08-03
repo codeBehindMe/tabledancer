@@ -11,7 +11,7 @@ class LifeCycleSpec:
         life_cycle_policy: LifeCyclePolicy,
         table_spec: TableSpec,
     ) -> None:
-    # FIXME: Docstring
+        # FIXME: Docstring
 
         self.backend = backend
         self.life_cycle_policy = life_cycle_policy

@@ -19,7 +19,7 @@ class DatabricksTableSpec(TableSpec):
         location: Optional[str] = None,
         options: Optional[List[str]] = None,
     ) -> None:
-    # FIXME: Docstring
+        # FIXME: Docstring
         super().__init__(self._validate_name(name), columns)
         self.database = database
         self.comment = comment

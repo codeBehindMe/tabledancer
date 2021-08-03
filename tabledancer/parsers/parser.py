@@ -15,7 +15,7 @@ class Parser:
     def parse_life_cycle_spec_dict(
         self, life_cycle_spec_dict: Dict[str, Any]
     ) -> LifeCycleSpec:
-    # FIXME: Docstring
+        # FIXME: Docstring
 
         life_cycle_spec_dict["life_cycle_policy"] = self._parse_life_cycle_policy_dict(
             life_cycle_spec_dict["life_cycle_policy"]
@@ -28,7 +28,7 @@ class Parser:
     def _parse_life_cycle_policy_dict(
         self, life_cycle_policy_dict: Dict[str, Any]
     ) -> LifeCyclePolicy:
-    # FIXME: Docstring
+        # FIXME: Docstring
 
         # FIXME [Aaron]: Strings in code which are reused in YAML files and
         #   possibly other locations in the future.
