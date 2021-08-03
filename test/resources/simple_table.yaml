@@ -5,6 +5,7 @@ life_cycle_policy:  # Required
   properties: null # Optional
 table_spec: # Required
   name: simple_table # Required
+  database_name: myproject # Required
   comment: # Required
   columns: # Required 
     - featureOne:  # Required  # Does not need to be snake case.
