@@ -18,6 +18,7 @@ class DatabricksTableSpec(TableSpec):
         location: Optional[str] = None,
         options: Optional[List[str]] = None,
     ) -> None:
+    # FIXME: Docstring
         super().__init__(self._validate_name(name), columns)
         self.comment = comment
         self.using = using
@@ -27,6 +28,7 @@ class DatabricksTableSpec(TableSpec):
 
     @staticmethod
     def _validate_name(name: str) -> str:
+        # FIXME: Docstring
 
         if is_none_or_empty_string(name):
             raise ValueError("Name cannot be empty or None")
@@ -34,21 +36,25 @@ class DatabricksTableSpec(TableSpec):
 
     @staticmethod
     def _validate_partitions(partitions: Optional[List[str]]) -> Optional[List[str]]:
+        # FIXME: Docstring
         if partitions is not None:
             raise NotImplementedError("Partitions not supported")
         return partitions
 
     @staticmethod
     def _validate_location(location: Optional[str]) -> Optional[str]:
+        # FIXME: Docstring
         if location is not None:
             raise NotImplementedError("Location not supported")
         return location
 
     @staticmethod
     def _validate_options(options: Optional[List[str]]) -> Optional[List[str]]:
+        # FIXME: Docstring
         if options is not None:
             raise NotImplementedError("Options not supported")
         return options
 
     def diff(other: DatabricksTableSpec) -> Any:
+        # FIXME: Docstring
         return super().diff()

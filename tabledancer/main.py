@@ -5,6 +5,7 @@ from tabledancer.dancers.databricks.dancer import DatabricksDancer
 
 
 def _databricks_dancer_handler(**kwargs) -> DatabricksDancer:
+    # FIXME: Docstring
     try:
         host = kwargs["host"]
         token = kwargs["token"]
@@ -18,10 +19,12 @@ def _databricks_dancer_handler(**kwargs) -> DatabricksDancer:
 dancers = {"databricks": _databricks_dancer_handler}
 
 
-class DanceClass:
+class DanceClass: # FIXME: Update class name to studio
     def dance(self, path_to_spec: str, dancer: IDancer, **kwargs):
+        # FIXME: Docstring
         dance_runner = dancers[dancer](**kwargs)
 
 
 def app():
+    # FIXME: Docstring
     return Fire(DanceClass)

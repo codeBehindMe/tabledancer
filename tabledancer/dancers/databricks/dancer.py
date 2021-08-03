@@ -9,10 +9,13 @@ class DatabricksDancer(IDancer):
     def __init__(
         self, workspace_id: str, token: str, cluster_id: str, port: str
     ) -> None:
+    # FIXME: Docstring
         super().__init__()
 
     def dance(self):
+        # FIXME: Docstring
         pass
 
     def parse_table_spec(self, table_spec_dict: Dict[str, Any]) -> TableSpec:
+        # FIXME: Docstring
         return DatabricksTableSpec(**table_spec_dict)

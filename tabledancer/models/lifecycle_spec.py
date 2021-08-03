@@ -12,6 +12,7 @@ class LifeCycleSpec:
         life_cycle_policy: LifeCyclePolicy,
         table_spec: TableSpec,
     ) -> None:
+    # FIXME: Docstring
 
         self.backend = backend
         self.database_name = database_name

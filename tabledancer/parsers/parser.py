@@ -9,11 +9,13 @@ from tabledancer.models.table_spec import TableSpec
 
 class Parser:
     def __init__(self, dancer: IDancer) -> None:
+        # FIXME: Docstring
         self.dancer = dancer
 
     def parse_life_cycle_spec_dict(
         self, life_cycle_spec_dict: Dict[str, Any]
     ) -> LifeCycleSpec:
+    # FIXME: Docstring
 
         life_cycle_spec_dict["life_cycle_policy"] = self._parse_life_cycle_policy_dict(
             life_cycle_spec_dict["life_cycle_policy"]
@@ -26,6 +28,7 @@ class Parser:
     def _parse_life_cycle_policy_dict(
         self, life_cycle_policy_dict: Dict[str, Any]
     ) -> LifeCyclePolicy:
+    # FIXME: Docstring
 
         # FIXME [Aaron]: Strings in code which are reused in YAML files and
         #   possibly other locations in the future.
@@ -37,5 +40,6 @@ class Parser:
         return life_cycle_policies[policy_name]()
 
     def _parse_table_spec_dict(self, table_spec_dict: Dict[str, Any]) -> TableSpec:
+        # FIXME: Docstring
 
         return self.dancer.parse_table_spec(table_spec_dict)
