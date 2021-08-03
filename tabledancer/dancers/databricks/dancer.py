@@ -22,5 +22,5 @@ class DatabricksDancer(IDancer):
         # FIXME: Docstring
         return DatabricksTableSpec(**table_spec_dict)
 
-    def get_table_ddl_from_backend(self, table_spec: TableSpec) -> str:
+    def get_table_ddl_from_backend(self, table_spec: DatabricksTableSpec) -> str:
         pass
