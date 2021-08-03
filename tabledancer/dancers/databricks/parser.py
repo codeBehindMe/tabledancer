@@ -1,5 +1,5 @@
-from typing import Optional
 import re
+from typing import Optional
 
 from tabledancer.dancers.databricks.table_spec import DatabricksTableSpec
 
@@ -21,10 +21,16 @@ class DatabricksDDLParser:
 
     def _get_database_name(self) -> str:
         # FIXME: Docstring
-        db_search = re.search('(?<=TABLE `)(.*)(?=`\.)',self.ddl, re.IGNORECASE)
+        db_search = re.search("(?<=TABLE `)(.*)(?=`\.)", self.ddl, re.IGNORECASE)
         if db_search:
-          return db_search.group(1)
+            return db_search.group(1)
         raise ValueError("Could not extract db name")
+
+    def _get_table_name(self) -> str:
+        table_search = re.search("(?<=\.`)(.*)(?=` \()", self.ddl, re.IGNORECASE)
+        if table_search:
+            return table_search.group(1)
+        raise ValueError("could not extract table name")
 
     def _find_ddl_definition_style(self, ddl: str):
         # FIXME: Docstring
