@@ -17,7 +17,12 @@ class DatabricksDDLParser:
 
     def parse(self) -> DatabricksTableSpec:
         # FIXME: Docstring
-        pass
+
+        return DatabricksTableSpec(
+            name=self._get_table_name()
+            ,database=self._get_database_name()
+            , columns=self._get_columns()
+        )
 
     def _get_database_name(self) -> str:
         # FIXME: Docstring
@@ -43,6 +48,14 @@ class DatabricksDDLParser:
       removed_backtick = [(x[0].replace('`',''),x[1]) for x in name_type_split]
       
       return removed_backtick
+
+    def _get_comment(self):
+        # FIXME: Docstring
+        return None # FIXME: Shouldn't be None
+
+    def _get_using(self):
+        # FIXME: Docstring
+        return None # FIXME: Souldn't be None
 
     def _find_ddl_definition_style(self, ddl: str):
         # FIXME: Docstring
