@@ -33,9 +33,16 @@ class DatabricksDDLParser:
             return table_search.group(1)
         raise ValueError("could not extract table name")
 
+    # FIXME: Refactor tuple (name, type) to a proper type.
     def _get_columns(self) -> List[Any]:
       # FIXME: Docstring
-      pass
+      columns_str = self.ddl.split("(")[1].split(")")[0].replace('\n','').strip()
+      columns_str_lists = map(lambda x: x.strip(), columns_str.split(","))
+      
+      name_type_split = [x.split(' ') for x in columns_str_lists]
+      removed_backtick = [(x[0].replace('`',''),x[1]) for x in name_type_split]
+      
+      return removed_backtick
 
     def _find_ddl_definition_style(self, ddl: str):
         # FIXME: Docstring

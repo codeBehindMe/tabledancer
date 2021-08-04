@@ -19,3 +19,9 @@ class TestDatabricksDDLParser:
         ddl_parser = DatabricksDDLParser(simple_ddl)
 
         assert ddl_parser._get_table_name() == "predictions"
+
+    def test_extract_columns(self, simple_ddl: str):
+        ddl_parser = DatabricksDDLParser(simple_ddl)
+        
+        expected = {('end_of_month', 'DATE'), ('run_id', 'BIGINT'), ('probability', 'DOUBLE'), ('prediction', 'INT'), ('policy_id', 'STRING')}
+        assert set(ddl_parser._get_columns()) == expected
