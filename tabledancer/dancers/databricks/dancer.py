@@ -81,6 +81,6 @@ class DatabricksDancer(IDancer):
         # FIXME: Docstring
 
         if self._check_if_table_exists(table_spec) is not True:
-            raise NotImplemented("Create table handler not implmented")
+            raise NotImplementedError("Create table handler not implmented")
 
         ddl = self._get_table_ddl_in_backend(table_spec)
