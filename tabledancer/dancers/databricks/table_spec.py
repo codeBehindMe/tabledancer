@@ -57,6 +57,10 @@ class DatabricksTableSpec(TableSpec):
             raise NotImplementedError("Options not supported")
         return options
 
-    def diff(other: DatabricksTableSpec) -> Any:
+    def diff(self, other: DatabricksTableSpec) -> Any:
         # FIXME: Docstring
-        return super().diff()
+        return super().diff(other)
+
+    def is_diff(self, other: TableSpec) -> bool:
+        # FIXME: Docstring
+        return super().is_diff(other)

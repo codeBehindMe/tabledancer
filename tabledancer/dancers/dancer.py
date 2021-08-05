@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import Any, Dict
 
+from tabledancer.models.lifecycle_policy import LifeCyclePolicy
 from tabledancer.models.table_spec import TableSpec
 
 
@@ -21,5 +22,12 @@ class IDancer(metaclass=ABCMeta):
 
     @abstractmethod
     def get_table_ddl_from_backend(self, table_spec: TableSpec) -> str:
+        # FIXME: Docstring
+        pass
+
+    @abstractmethod
+    def take_life_cycle_action(
+        self, life_cycle_policy: LifeCyclePolicy, target_spec: TableSpec
+    ):
         # FIXME: Docstring
         pass

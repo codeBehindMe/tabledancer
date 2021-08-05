@@ -5,7 +5,10 @@ from pyspark.sql import SparkSession
 from tabledancer.dancers.dancer import IDancer
 from tabledancer.dancers.databricks.parser import DatabricksDDLParser
 from tabledancer.dancers.databricks.table_spec import DatabricksTableSpec
-from tabledancer.models.lifecycle_policy import (LifeCyclePolicy,
+from tabledancer.models.lifecycle_policy import (DropCreateOnSchemaChange,
+                                                 ErrorOnSchemaChange,
+                                                 EvolveOnSchemaChange,
+                                                 LifeCyclePolicy,
                                                  life_cycle_policies)
 from tabledancer.models.lifecycle_spec import LifeCycleSpec
 from tabledancer.models.table_spec import TableSpec
@@ -22,15 +25,33 @@ class DatabricksDancer(IDancer):
     def dance(self, life_cycle_spec_dict: Dict[str, Any]):
         # FIXME: Docstring
         parsed_spec = self._parse_life_cycle_spec_dict(life_cycle_spec_dict)
-        table_spec: DatabricksTableSpec = parsed_spec["table_spec"]
+        table_spec: DatabricksTableSpec = parsed_spec.table_spec
         if not self._check_if_table_exists(table_spec):
             raise NotImplementedError("Action not implemented")
 
-        existing_ddl = self.get_table_ddl_from_backend(table_spec)
+        if not self._check_if_table_exists(table_spec):
+            raise NotImplementedError("Implement this")  # FIXME: Implement this this
+
+        existing_ddl = self._get_table_ddl_in_backend(table_spec)
         existing_table_spec = DatabricksDDLParser(existing_ddl).parse()
 
-        table_spec.diff(existing_ddl)
+        if table_spec.is_diff(existing_table_spec):
+            raise NotImplementedError("Implement this")
         # FIXME: Implement actions
+
+    def take_life_cycle_action(
+        self, life_cycle_policy: LifeCyclePolicy, target_spec: TableSpec
+    ):
+        # FIXME: Docstring
+
+        if isinstance(life_cycle_policy, DropCreateOnSchemaChange):
+            raise NotImplementedError("Implement this")
+        elif isinstance(life_cycle_policy, ErrorOnSchemaChange):
+            raise NotImplementedError("Implement this")
+        elif isinstance(life_cycle_policy, EvolveOnSchemaChange):
+            raise NotImplementedError("Implement this")
+        else:
+            raise NotImplementedError("Unsupported life cycle policy")
 
     def _parse_life_cycle_spec_dict(self, life_cycle_spec_dict: Dict[str, Any]):
         # FIXME: Docstring
@@ -81,6 +102,7 @@ class DatabricksDancer(IDancer):
         # FIXME: Docstring
 
         if self._check_if_table_exists(table_spec) is not True:
-            raise NotImplemented("Create table handler not implmented")
+            raise NotImplementedError("Create table handler not implmented")
 
         ddl = self._get_table_ddl_in_backend(table_spec)
+        return DatabricksDDLParser(ddl).parse()
