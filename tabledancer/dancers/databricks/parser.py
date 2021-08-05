@@ -29,14 +29,14 @@ class DatabricksDDLParser:
 
     def _get_database_name(self, ddl_str: str) -> str:
         # FIXME: Docstring
-        db_search = re.search("(?<=TABLE `)(.*)(?=`\.)", ddl_str, re.IGNORECASE)
+        db_search = re.search(r"(?<=TABLE `)(.*)(?=`\.)", ddl_str, re.IGNORECASE)
         if db_search:
             return db_search.group(1)
         raise ValueError("Could not extract db name")
 
     def _get_table_name(self, ddl_str: str) -> str:
         # FIXME: Docstring
-        table_search = re.search("(?<=\.`)(.*)(?=` \()", ddl_str, re.IGNORECASE)
+        table_search = re.search(r"(?<=\.`)(.*)(?=` \()", ddl_str, re.IGNORECASE)
         if table_search:
             return table_search.group(1)
         raise ValueError("could not extract table name")
