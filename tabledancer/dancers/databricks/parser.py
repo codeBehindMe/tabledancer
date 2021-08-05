@@ -15,23 +15,23 @@ class DatabricksDDLParser:
         self.table_definition_style: Optional[str] = None
         self.ddl = ddl
 
-    def parse(self) -> DatabricksTableSpec:
+    def to_table_spec(self, ddl_str: str) -> DatabricksTableSpec:
         # FIXME: Docstring
 
         return DatabricksTableSpec(
-            name=self._get_table_name(),
-            database=self._get_database_name(),
-            columns=self._get_columns(),
+            name=self._get_table_name(ddl_str),
+            database=self._get_database_name(ddl_str),
+            columns=self._get_columns(ddl_str),
         )
 
-    def _get_database_name(self) -> str:
+    def _get_database_name(self, ddl_str: str) -> str:
         # FIXME: Docstring
         db_search = re.search("(?<=TABLE `)(.*)(?=`\.)", self.ddl, re.IGNORECASE)
         if db_search:
             return db_search.group(1)
         raise ValueError("Could not extract db name")
 
-    def _get_table_name(self) -> str:
+    def _get_table_name(self, ddl_str: str) -> str:
         # FIXME: Docstring
         table_search = re.search("(?<=\.`)(.*)(?=` \()", self.ddl, re.IGNORECASE)
         if table_search:
@@ -39,7 +39,7 @@ class DatabricksDDLParser:
         raise ValueError("could not extract table name")
 
     # FIXME: Refactor tuple (name, type) to a proper type.
-    def _get_columns(self) -> List[Any]:
+    def _get_columns(self, ddl_str: str) -> List[Any]:
         # FIXME: Docstring
         columns_str = self.ddl.split("(")[1].split(")")[0].replace("\n", "").strip()
         columns_str_lists = map(lambda x: x.strip(), columns_str.split(","))
@@ -49,20 +49,20 @@ class DatabricksDDLParser:
 
         return removed_backtick
 
-    def _get_comment(self):
+    def _get_comment(self, ddl_str: str):
         # FIXME: Docstring
         return None  # FIXME: Shouldn't be None
 
-    def _get_using(self):
+    def _get_using(self, ddl_str: str):
         # FIXME: Docstring
         return None  # FIXME: Souldn't be None
 
-    def _find_ddl_definition_style(self, ddl: str):
+    def _find_ddl_definition_style(self, ddl_str: str):
         # FIXME: Docstring
 
-        if ddl.find(_TABLE_DEFINITION_STYLE["external"]) != -1:
+        if ddl_str.find(_TABLE_DEFINITION_STYLE["external"]) != -1:
             self.table_definition_style = _TABLE_DEFINITION_STYLE["external"]
-        elif ddl.find(_TABLE_DEFINITION_STYLE["managed"]) != -1:
+        elif ddl_str.find(_TABLE_DEFINITION_STYLE["managed"]) != -1:
             self.table_definition_style = _TABLE_DEFINITION_STYLE["managed"]
         else:
             raise ValueError("Unsupported table ddl")

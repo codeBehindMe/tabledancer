@@ -14,12 +14,12 @@ class TestDatabricksDDLParser:
     def test_extract_database_name_gets_correct_db_name(self, simple_ddl: str):
         ddl_parser = DatabricksDDLParser(simple_ddl)
 
-        assert ddl_parser._get_database_name() == "gth_prediction"
+        assert ddl_parser._get_database_name(simple_ddl) == "gth_prediction"
 
     def test_extract_table_name(self, simple_ddl: str):
         ddl_parser = DatabricksDDLParser(simple_ddl)
 
-        assert ddl_parser._get_table_name() == "predictions"
+        assert ddl_parser._get_table_name(simple_ddl) == "predictions"
 
     def test_extract_columns(self, simple_ddl: str):
         ddl_parser = DatabricksDDLParser(simple_ddl)
@@ -31,7 +31,7 @@ class TestDatabricksDDLParser:
             ("prediction", "INT"),
             ("policy_id", "STRING"),
         }
-        assert set(ddl_parser._get_columns()) == expected
+        assert set(ddl_parser._get_columns(simple_ddl)) == expected
 
     def test_parse(self, simple_ddl: str):
 
@@ -51,7 +51,7 @@ class TestDatabricksDDLParser:
             ],
         )
 
-        got = ddl_parser.parse()
+        got = ddl_parser.to_table_spec(ddl_string)
         assert got.name == want.name
         assert got.database == want.database
         assert set(got.columns) == set(want.columns)
