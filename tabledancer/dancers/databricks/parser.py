@@ -23,6 +23,10 @@ class DatabricksDDLParser:
             columns=self._get_columns(ddl_str),
         )
 
+    def to_ddl(self, table_spec: DatabricksTableSpec) -> str:
+        # FIXME: Docstring
+        pass
+
     def _get_database_name(self, ddl_str: str) -> str:
         # FIXME: Docstring
         db_search = re.search("(?<=TABLE `)(.*)(?=`\.)", ddl_str, re.IGNORECASE)
