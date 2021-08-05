@@ -12,6 +12,6 @@ class TableSpec(metaclass=ABCMeta):
         self.columns = columns
 
     @abstractmethod
-    def diff(other: TableSpec) -> Any:
+    def diff(self, other: TableSpec) -> Any:
         # FIXME: Docstring
         pass

@@ -22,7 +22,7 @@ class DatabricksDancer(IDancer):
     def dance(self, life_cycle_spec_dict: Dict[str, Any]):
         # FIXME: Docstring
         parsed_spec = self._parse_life_cycle_spec_dict(life_cycle_spec_dict)
-        table_spec: DatabricksTableSpec = parsed_spec["table_spec"]
+        table_spec: DatabricksTableSpec = parsed_spec.table_spec
         if not self._check_if_table_exists(table_spec):
             raise NotImplementedError("Action not implemented")
 
