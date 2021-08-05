@@ -19,8 +19,8 @@ def dummy_dancer() -> IDancer:
         def __init__(self, name: str, columns: List[Any]) -> None:
             super().__init__(name, columns)
 
-        def diff(other: TableSpec) -> Any:
-            return super().diff()
+        def diff(self, other: TableSpec) -> Any:
+            return super().diff(other)
 
         def is_diff(self, other: TableSpec) -> bool:
             return super().is_diff(other)

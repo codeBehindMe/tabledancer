@@ -59,7 +59,7 @@ class DatabricksTableSpec(TableSpec):
 
     def diff(self, other: DatabricksTableSpec) -> Any:
         # FIXME: Docstring
-        return super().diff()
+        return super().diff(other)
 
     def is_diff(self, other: TableSpec) -> bool:
         # FIXME: Docstring
