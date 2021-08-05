@@ -3,6 +3,7 @@ from typing import Any, Dict, List
 import pytest
 
 from tabledancer.dancers.dancer import IDancer
+from tabledancer.models.lifecycle_policy import LifeCyclePolicy
 from tabledancer.models.table_spec import TableSpec
 from tabledancer.parsers.parser import Parser
 from tabledancer.utils.misc import read_yaml_file
@@ -37,6 +38,11 @@ def dummy_dancer() -> IDancer:
 
         def get_table_ddl_from_backend(self, table_spec: TableSpec) -> str:
             return super().get_table_ddl_from_backend(table_spec)
+
+        def take_life_cycle_action(
+            self, life_cycle_policy: LifeCyclePolicy, target_spec: TableSpec
+        ):
+            return super().take_life_cycle_action(life_cycle_policy, target_spec)
 
     return DummyDancer()
 
