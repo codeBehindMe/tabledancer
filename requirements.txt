@@ -1,3 +1,6 @@
 fire
 pyyaml
 black
+pytest
+isort
+databricks-connect==8.1.*
