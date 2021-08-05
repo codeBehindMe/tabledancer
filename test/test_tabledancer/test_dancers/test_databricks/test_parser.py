@@ -12,17 +12,17 @@ def simple_ddl() -> str:
 @pytest.mark.usefixtures("simple_ddl")
 class TestDatabricksDDLParser:
     def test_extract_database_name_gets_correct_db_name(self, simple_ddl: str):
-        ddl_parser = DatabricksDDLParser(simple_ddl)
+        ddl_parser = DatabricksDDLParser()
 
         assert ddl_parser._get_database_name(simple_ddl) == "gth_prediction"
 
     def test_extract_table_name(self, simple_ddl: str):
-        ddl_parser = DatabricksDDLParser(simple_ddl)
+        ddl_parser = DatabricksDDLParser()
 
         assert ddl_parser._get_table_name(simple_ddl) == "predictions"
 
     def test_extract_columns(self, simple_ddl: str):
-        ddl_parser = DatabricksDDLParser(simple_ddl)
+        ddl_parser = DatabricksDDLParser()
 
         expected = {
             ("end_of_month", "DATE"),
@@ -37,7 +37,7 @@ class TestDatabricksDDLParser:
 
         ddl_string = "CREATE TABLE `mydatabase`.`mytable` (\n  `policy_id` STRING,\n  `probability` DOUBLE,\n  `prediction` INT,\n  `end_of_month` DATE,\n  `run_id` BIGINT)\nUSING delta\nOPTIONS (\n  `overwriteSchema` 'true')\nTBLPROPERTIES (\n  'overwriteSchema' = 'true')\n"
 
-        ddl_parser = DatabricksDDLParser(ddl_string)
+        ddl_parser = DatabricksDDLParser()
 
         want = DatabricksTableSpec(
             name="mytable",

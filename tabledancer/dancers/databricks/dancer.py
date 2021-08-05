@@ -33,9 +33,7 @@ class DatabricksDancer(IDancer):
             raise NotImplementedError("Implement this")  # FIXME: Implement this this
 
         existing_ddl = self._get_table_ddl_in_backend(table_spec)
-        existing_table_spec = DatabricksDDLParser(existing_ddl).to_table_spec(
-            existing_ddl
-        )
+        existing_table_spec = DatabricksDDLParser().to_table_spec(existing_ddl)
 
         if table_spec.is_diff(existing_table_spec):
             raise NotImplementedError("Implement this")
@@ -107,4 +105,4 @@ class DatabricksDancer(IDancer):
             raise NotImplementedError("Create table handler not implmented")
 
         ddl = self._get_table_ddl_in_backend(table_spec)
-        return DatabricksDDLParser(ddl).to_table_spec(ddl)
+        return DatabricksDDLParser().to_table_spec(ddl)

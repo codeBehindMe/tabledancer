@@ -10,10 +10,9 @@ _TABLE_DEFINITION_STYLE = {
 
 
 class DatabricksDDLParser:
-    def __init__(self, ddl: str) -> None:
+    def __init__(self) -> None:
         # FIXME: Docstring
         self.table_definition_style: Optional[str] = None
-        self.ddl = ddl
 
     def to_table_spec(self, ddl_str: str) -> DatabricksTableSpec:
         # FIXME: Docstring
@@ -26,14 +25,14 @@ class DatabricksDDLParser:
 
     def _get_database_name(self, ddl_str: str) -> str:
         # FIXME: Docstring
-        db_search = re.search("(?<=TABLE `)(.*)(?=`\.)", self.ddl, re.IGNORECASE)
+        db_search = re.search("(?<=TABLE `)(.*)(?=`\.)", ddl_str, re.IGNORECASE)
         if db_search:
             return db_search.group(1)
         raise ValueError("Could not extract db name")
 
     def _get_table_name(self, ddl_str: str) -> str:
         # FIXME: Docstring
-        table_search = re.search("(?<=\.`)(.*)(?=` \()", self.ddl, re.IGNORECASE)
+        table_search = re.search("(?<=\.`)(.*)(?=` \()", ddl_str, re.IGNORECASE)
         if table_search:
             return table_search.group(1)
         raise ValueError("could not extract table name")
@@ -41,7 +40,7 @@ class DatabricksDDLParser:
     # FIXME: Refactor tuple (name, type) to a proper type.
     def _get_columns(self, ddl_str: str) -> List[Any]:
         # FIXME: Docstring
-        columns_str = self.ddl.split("(")[1].split(")")[0].replace("\n", "").strip()
+        columns_str = ddl_str.split("(")[1].split(")")[0].replace("\n", "").strip()
         columns_str_lists = map(lambda x: x.strip(), columns_str.split(","))
 
         name_type_split = [x.split(" ") for x in columns_str_lists]
