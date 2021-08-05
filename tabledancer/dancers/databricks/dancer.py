@@ -1,3 +1,4 @@
+from tabledancer.dancers.databricks.parser import DatabricksDDLParser
 from typing import Any, Dict, List
 
 from pyspark.sql import SparkSession
@@ -20,7 +21,19 @@ class DatabricksDancer(IDancer):
 
     def dance(self, life_cycle_spec_dict: Dict[str, Any]):
         # FIXME: Docstring
-        pass
+        parsed_spec = self._parse_life_cycle_spec_dict(life_cycle_spec_dict)
+        table_spec : DatabricksTableSpec = parsed_spec["table_spec"]
+        if  not self._check_if_table_exists(table_spec):
+            raise NotImplementedError("Action not implemented")
+
+        existing_ddl = self.get_table_ddl_from_backend(table_spec)
+        existing_table_spec = DatabricksDDLParser(existing_ddl).parse()
+
+        table_spec.diff(existing_ddl)
+        # FIXME: Implement actions
+
+        
+        
 
     def _parse_life_cycle_spec_dict(self, life_cycle_spec_dict: Dict[str, Any]):
         # FIXME: Docstring
