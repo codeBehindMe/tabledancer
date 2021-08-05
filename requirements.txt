@@ -4,3 +4,4 @@ black
 pytest
 isort
 pyspark
+jinja2
