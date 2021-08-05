@@ -22,6 +22,9 @@ def dummy_dancer() -> IDancer:
         def diff(other: TableSpec) -> Any:
             return super().diff()
 
+        def is_diff(self, other: TableSpec) -> bool:
+            return super().is_diff(other)
+
     class DummyDancer(IDancer):
         def __init__(self) -> None:
             super().__init__()
