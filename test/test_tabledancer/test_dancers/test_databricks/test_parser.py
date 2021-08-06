@@ -74,3 +74,4 @@ class TestDatabricksDDLParser:
         ddl = DatabricksDDLParser().to_ddl(original)
 
         recovered = DatabricksDDLParser().to_table_spec(ddl)
+        assert original.is_diff(recovered) is False
