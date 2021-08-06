@@ -1,13 +1,29 @@
+import os
+import shutil
 from test.test_tabledancer.test_dancers.test_databricks._fixtures import (
     db_life_cycle_spec_dict, db_table_spec_dict)
 from typing import Any, Dict
 
+import pyspark
 import pytest
+from delta import configure_spark_with_delta_pip
 
 from tabledancer.dancers.databricks.dancer import DatabricksDancer
+from tabledancer.dancers.databricks.table_spec import DatabricksTableSpec
 from tabledancer.models.lifecycle_spec import LifeCycleSpec
 from tabledancer.models.table_spec import TableSpec
 from tabledancer.utils.misc import read_yaml_file
+
+builder = (
+    pyspark.sql.SparkSession.builder.appName("tests")
+    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+    .config(
+        "spark.sql.catalog.spark_catalog",
+        "org.apache.spark.sql.delta.catalog.DeltaCatalog",
+    )
+)
+
+spark = configure_spark_with_delta_pip(builder).getOrCreate()
 
 
 @pytest.mark.usefixtures("db_table_spec_dict", "db_life_cycle_spec_dict")
@@ -40,3 +56,18 @@ class TestDatabricksDancer:
             db_dancer._parse_life_cycle_spec_dict(db_life_cycle_spec_dict),
             LifeCycleSpec,
         )
+
+    def test_table_does_not_exists_move(self, db_table_spec_dict: Dict[str, Any]):
+        # FIXME: Docstring
+        db_dancer = DatabricksDancer(None, None, None, None)
+
+        table_spec = DatabricksTableSpec(
+            name="mytable",
+            database="default",
+            columns=[("a", "int"), ("b", "string")],
+            using="delta",
+        )
+
+        db_dancer.table_does_not_exist_move(table_spec)
+        if os.path.isdir("spark-warehouse"):
+            shutil.rmtree("spark-warehouse")

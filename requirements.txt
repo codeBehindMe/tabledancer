@@ -4,4 +4,5 @@ black
 pytest
 isort
 pyspark
+delta-spark
 jinja2
