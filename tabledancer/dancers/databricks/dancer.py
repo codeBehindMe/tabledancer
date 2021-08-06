@@ -119,7 +119,8 @@ class DatabricksDancer(IDancer, IMoves):
     def evolve_on_schema_change_move(
         self, target_table_spec: TableSpec, evolve_table_policy: EvolveOnSchemaChange
     ):
-        raise NotImplementedError()
+        # FIXME: Docstring
+        raise ValueError("Not supported")
 
     def drop_create_on_schema_change_move(
         self, table_spec: TableSpec, drop_create_policy: DropCreateOnSchemaChange

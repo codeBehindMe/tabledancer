@@ -79,3 +79,10 @@ class TestDatabricksDancer:
             assert e == DatabricksDancer(
                 None, None, None, None
             ).error_on_schema_change_move(None)
+
+    def test_evolve_on_schema_change_move(self):
+        # FIXME: Docstring
+        with pytest.raises(ValueError) as e:
+            assert e == DatabricksDancer(
+                None, None, None, None
+            ).evolve_on_schema_change_move(None, None)
