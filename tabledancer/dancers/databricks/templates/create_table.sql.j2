@@ -1,6 +1,6 @@
-CREATE TABLE {{ name }} (
+CREATE TABLE `{{ database }}`.`{{ name }}` (
   {%for c, t in columns %}
-    {{c}} {{t}} {{", " if not loop.last else ""}}
+    `{{c}}` {{t}} {{", " if not loop.last else ""}}
   {% endfor %}
 )
-USING {{ using }};
+USING {{ using }}

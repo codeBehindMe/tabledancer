@@ -9,7 +9,7 @@ _TABLE_DEFINITION_STYLE = {
     "external": "CREATE EXTERNAL TABLE",
 }
 
-PATH_TO_TEMPLATES: Final[str] = "tabledancer/databricks/templates/"
+PATH_TO_TEMPLATES: Final[str] = "tabledancer/dancers/databricks/templates/"
 CREATE_TABLE_TEMPLATE: Final[str] = "create_table.sql.j2"
 
 
@@ -32,8 +32,13 @@ class DatabricksDDLParser:
         name = table_spec.name
         columns = table_spec.columns
         using = table_spec.using
+        database = table_spec.database
         return Templater(PATH_TO_TEMPLATES).render_template(
-            CREATE_TABLE_TEMPLATE, name=name, columns=columns, using=using
+            CREATE_TABLE_TEMPLATE,
+            name=name,
+            columns=columns,
+            using=using,
+            database=database,
         )
 
     def _get_database_name(self, ddl_str: str) -> str:

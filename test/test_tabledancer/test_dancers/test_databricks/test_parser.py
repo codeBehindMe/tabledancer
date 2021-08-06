@@ -55,3 +55,22 @@ class TestDatabricksDDLParser:
         assert got.name == want.name
         assert got.database == want.database
         assert set(got.columns) == set(want.columns)
+
+    def test_to_ddl_conversion(self):
+        # FIXME: Docstring
+
+        original = DatabricksTableSpec(
+            name="mytable",
+            database="mydatabase",
+            columns=[
+                ("policy_id", "STRING"),
+                ("probability", "DOUBLE"),
+                ("prediction", "INT"),
+                ("end_of_month", "DATE"),
+                ("run_id", "BIGINT"),
+            ],
+        )
+
+        ddl = DatabricksDDLParser().to_ddl(original)
+
+        recovered = DatabricksDDLParser().to_table_spec(ddl)
