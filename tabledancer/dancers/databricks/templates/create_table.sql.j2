@@ -1,0 +1,6 @@
+CREATE TABLE {{ name }} (
+  {%for c, t in columns %}
+    {{c}} {{t}} {{", " if not loop.last else ""}}
+  {% endfor %}
+)
+USING {{ using }};

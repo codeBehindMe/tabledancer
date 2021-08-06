@@ -1,12 +1,16 @@
 import re
-from typing import Any, List, Optional
+from typing import Any, Final, List, Optional
 
 from tabledancer.dancers.databricks.table_spec import DatabricksTableSpec
+from tabledancer.utils.templating import Templater
 
 _TABLE_DEFINITION_STYLE = {
     "managed": "CREATE TABLE",
     "external": "CREATE EXTERNAL TABLE",
 }
+
+PATH_TO_TEMPLATES: Final[str] = "tabledancer/databricks/templates/"
+CREATE_TABLE_TEMPLATE: Final[str] = "create_table.sql.j2"
 
 
 class DatabricksDDLParser:
@@ -25,7 +29,12 @@ class DatabricksDDLParser:
 
     def to_ddl(self, table_spec: DatabricksTableSpec) -> str:
         # FIXME: Docstring
-        pass
+        name = table_spec.name
+        columns = table_spec.columns
+        using = table_spec.using
+        return Templater(PATH_TO_TEMPLATES).render_template(
+            CREATE_TABLE_TEMPLATE, name=name, columns=columns, using=using
+        )
 
     def _get_database_name(self, ddl_str: str) -> str:
         # FIXME: Docstring
