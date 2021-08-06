@@ -109,10 +109,12 @@ class DatabricksDancer(IDancer, IMoves):
         return DatabricksDDLParser().to_table_spec(ddl)
 
     def table_does_not_exist_move(self, table_spec: TableSpec):
+        # FIXME: Docstring
         self.spark.sql(DatabricksDDLParser().to_ddl(table_spec)).collect()
 
     def error_on_schema_change_move(self, raise_error_policy: ErrorOnSchemaChange):
-        return NotImplementedError()
+        # FIXME: Docstring
+        raise ValueError("Schema has changed!")
 
     def evolve_on_schema_change_move(
         self, target_table_spec: TableSpec, evolve_table_policy: EvolveOnSchemaChange

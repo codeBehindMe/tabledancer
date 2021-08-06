@@ -71,3 +71,11 @@ class TestDatabricksDancer:
         db_dancer.table_does_not_exist_move(table_spec)
         if os.path.isdir("spark-warehouse"):
             shutil.rmtree("spark-warehouse")
+
+    def test_error_on_schema_change_raises_value_error(self):
+        # FIXME: Docstring
+
+        with pytest.raises(ValueError) as e:
+            assert e == DatabricksDancer(
+                None, None, None, None
+            ).error_on_schema_change_move(None)
