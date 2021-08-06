@@ -14,7 +14,7 @@ class TableSpec(metaclass=ABCMeta):
     @abstractmethod
     def diff(self, other: TableSpec) -> Any:
         # FIXME: Docstring
-        pass # FIXME: Raise NotImplementedError
+        pass  # FIXME: Raise NotImplementedError
 
     @abstractmethod
     def is_diff(self, other: TableSpec) -> bool:
