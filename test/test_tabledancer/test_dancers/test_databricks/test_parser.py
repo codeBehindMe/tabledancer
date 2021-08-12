@@ -12,17 +12,17 @@ def simple_ddl() -> str:
 @pytest.mark.usefixtures("simple_ddl")
 class TestDatabricksDDLParser:
     def test_extract_database_name_gets_correct_db_name(self, simple_ddl: str):
-        ddl_parser = DatabricksDDLParser(simple_ddl)
+        ddl_parser = DatabricksDDLParser()
 
-        assert ddl_parser._get_database_name() == "gth_prediction"
+        assert ddl_parser._get_database_name(simple_ddl) == "gth_prediction"
 
     def test_extract_table_name(self, simple_ddl: str):
-        ddl_parser = DatabricksDDLParser(simple_ddl)
+        ddl_parser = DatabricksDDLParser()
 
-        assert ddl_parser._get_table_name() == "predictions"
+        assert ddl_parser._get_table_name(simple_ddl) == "predictions"
 
     def test_extract_columns(self, simple_ddl: str):
-        ddl_parser = DatabricksDDLParser(simple_ddl)
+        ddl_parser = DatabricksDDLParser()
 
         expected = {
             ("end_of_month", "DATE"),
@@ -31,13 +31,13 @@ class TestDatabricksDDLParser:
             ("prediction", "INT"),
             ("policy_id", "STRING"),
         }
-        assert set(ddl_parser._get_columns()) == expected
+        assert set(ddl_parser._get_columns(simple_ddl)) == expected
 
     def test_parse(self, simple_ddl: str):
 
         ddl_string = "CREATE TABLE `mydatabase`.`mytable` (\n  `policy_id` STRING,\n  `probability` DOUBLE,\n  `prediction` INT,\n  `end_of_month` DATE,\n  `run_id` BIGINT)\nUSING delta\nOPTIONS (\n  `overwriteSchema` 'true')\nTBLPROPERTIES (\n  'overwriteSchema' = 'true')\n"
 
-        ddl_parser = DatabricksDDLParser(ddl_string)
+        ddl_parser = DatabricksDDLParser()
 
         want = DatabricksTableSpec(
             name="mytable",
@@ -51,7 +51,27 @@ class TestDatabricksDDLParser:
             ],
         )
 
-        got = ddl_parser.parse()
+        got = ddl_parser.to_table_spec(ddl_string)
         assert got.name == want.name
         assert got.database == want.database
         assert set(got.columns) == set(want.columns)
+
+    def test_to_ddl_conversion(self):
+        # FIXME: Docstring
+
+        original = DatabricksTableSpec(
+            name="mytable",
+            database="mydatabase",
+            columns=[
+                ("policy_id", "STRING"),
+                ("probability", "DOUBLE"),
+                ("prediction", "INT"),
+                ("end_of_month", "DATE"),
+                ("run_id", "BIGINT"),
+            ],
+        )
+
+        ddl = DatabricksDDLParser().to_ddl(original)
+
+        recovered = DatabricksDDLParser().to_table_spec(ddl)
+        assert original.is_diff(recovered) is False

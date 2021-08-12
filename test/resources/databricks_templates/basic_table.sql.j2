@@ -1,0 +1,7 @@
+CREATE {{ "" if not external else external }} TABLE  {{ name }}
+(
+  {% for col, t in columns %}
+    {{col}} {{t}}  {{ ", " if not loop.last else "" }}
+  {% endfor %}
+)
+USING {{ using }};

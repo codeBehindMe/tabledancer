@@ -11,10 +11,11 @@ from tabledancer.models.lifecycle_policy import (DropCreateOnSchemaChange,
                                                  LifeCyclePolicy,
                                                  life_cycle_policies)
 from tabledancer.models.lifecycle_spec import LifeCycleSpec
+from tabledancer.models.moves import IMoves
 from tabledancer.models.table_spec import TableSpec
 
 
-class DatabricksDancer(IDancer):
+class DatabricksDancer(IDancer, IMoves):
     def __init__(
         self, workspace_id: str, token: str, cluster_id: str, port: str
     ) -> None:
@@ -33,7 +34,7 @@ class DatabricksDancer(IDancer):
             raise NotImplementedError("Implement this")  # FIXME: Implement this this
 
         existing_ddl = self._get_table_ddl_in_backend(table_spec)
-        existing_table_spec = DatabricksDDLParser(existing_ddl).parse()
+        existing_table_spec = DatabricksDDLParser().to_table_spec(existing_ddl)
 
         if table_spec.is_diff(existing_table_spec):
             raise NotImplementedError("Implement this")
@@ -105,4 +106,23 @@ class DatabricksDancer(IDancer):
             raise NotImplementedError("Create table handler not implmented")
 
         ddl = self._get_table_ddl_in_backend(table_spec)
-        return DatabricksDDLParser(ddl).parse()
+        return DatabricksDDLParser().to_table_spec(ddl)
+
+    def table_does_not_exist_move(self, table_spec: TableSpec):
+        # FIXME: Docstring
+        self.spark.sql(DatabricksDDLParser().to_ddl(table_spec)).collect()
+
+    def error_on_schema_change_move(self, raise_error_policy: ErrorOnSchemaChange):
+        # FIXME: Docstring
+        raise ValueError("Schema has changed!")
+
+    def evolve_on_schema_change_move(
+        self, target_table_spec: TableSpec, evolve_table_policy: EvolveOnSchemaChange
+    ):
+        # FIXME: Docstring
+        raise ValueError("Not supported")
+
+    def drop_create_on_schema_change_move(
+        self, table_spec: TableSpec, drop_create_policy: DropCreateOnSchemaChange
+    ):
+        return super().drop_create_on_schema_change_move(table_spec, drop_create_policy)
