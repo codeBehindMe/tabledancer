@@ -195,3 +195,26 @@ class TestDeltabricksTableSpec:
         )
 
         assert not spec_1.is_same(spec_2)
+
+
+@pytest.mark.usefixtures("simple_choreograph", "spark")
+class TestDeltabricksDancer:
+    def test_drop_create_on_schema_change(
+        self, simple_choreograph: Dict[str, Any], spark: SparkSession
+    ):
+
+        dancer = DeltabricksDancer(None, None, None, None)
+
+        DeltabricksBackend().sql("create database myprojectfour")
+        simple_choreograph["table_spec"]["database"] = "myprojectfour"
+        dancer.dance(simple_choreograph)
+
+        simple_choreograph["table_spec"]["columns"][0]["featureOne"]["type"] = "string"
+
+        dancer.dance(simple_choreograph)
+
+        got_table_spec = DeltabricksTableSpec.from_ddl_info(
+            DeltabricksBackend().get_ddl_info("myprojectfour", "simple_table")
+        )
+
+        assert got_table_spec.columns[0]["featureOne"]["type"] == "string"

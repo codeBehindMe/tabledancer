@@ -144,7 +144,7 @@ class DeltabricksDancer:
         self.backend = DeltabricksBackend()
 
     @action
-    def drop_create_on_schema_change(
+    def DropCreateOnSchemaChange(
         self,
         vc_table_spec: DeltabricksTableSpec,
         backend_table_spec: DeltabricksTableSpec,
@@ -171,7 +171,7 @@ class DeltabricksDancer:
         if not self.backend.table_exists(
             vc_table_spec.database_name, vc_table_spec.table_name
         ):
-            self.backend.sql(vc_table_spec.to_create_table_ddl())
+            return self.backend.sql(vc_table_spec.to_create_table_ddl())
 
         backend_table_spec = DeltabricksTableSpec.from_ddl_info(
             self.backend.get_ddl_info(
@@ -181,9 +181,11 @@ class DeltabricksDancer:
 
         if not vc_table_spec.is_same(backend_table_spec):
 
-            action = getattr(self, choreograph["life_cycle_policy"]["name"])
+            action = getattr(self, choreograph["life_cycle_policy"]["policy"])
             action(
                 vc_table_spec,
                 backend_table_spec,
                 choreograph["life_cycle_policy"]["properties"],
             )
+
+        return
