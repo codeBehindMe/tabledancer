@@ -7,10 +7,11 @@ from functools import wraps
 
 class DeltabricksTableSpec:
 
-  def __init__(self, table_name : str, database_name: str, columns : Dict[Any]) -> None:
+  def __init__(self, table_name : str, database_name: str, columns : Dict[str, str], using : str) -> None:
       self.table_name = table_name
       self.database_name = database_name
       self.columns = columns
+      self.using = using
 
   @staticmethod
   def from_dict(d : Dict[str, Any]) -> DeltabricksTableSpec:
