@@ -127,25 +127,19 @@ class TestDeltabricksTableSpec:
         USING DELTA
         """
 
-        spark.sql(ddl)
-
-        return
-        ddl_info = (
-            spark.sql("SHOW TABLE EXTENDED IN myproject LIKE 'simple_table'")
-            .limit(1)
-            .collect()[0]
-            .information
-        )
-
         want = DeltabricksTableSpec(
             table_name="simple_table",
-            database_name="myproject",
+            database_name="myprojectone",
             columns=[
                 {"featureOne": {"type": "int", "comment": "It's a feature"}},
                 {"featureTwo": {"type": "string", "comment": "It's another feature"}},
             ],
-            using="DELTA",
+            using="delta",
         )
+
+        spark.sql(ddl)
+
+        ddl_info = DeltabricksBackend().get_ddl_info("myprojectone", "simple_table")
 
         got = DeltabricksTableSpec.from_ddl_info(ddl_info)
 
