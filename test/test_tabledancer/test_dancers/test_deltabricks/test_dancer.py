@@ -203,7 +203,7 @@ class TestDeltabricksDancer:
         self, simple_choreograph: Dict[str, Any], spark: SparkSession
     ):
 
-        dancer = DeltabricksDancer(None, None, None, None)
+        dancer = DeltabricksDancer()
 
         DeltabricksBackend().sql("create database myprojectfour")
         simple_choreograph["table_spec"]["database"] = "myprojectfour"
