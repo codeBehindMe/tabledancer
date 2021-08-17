@@ -147,3 +147,27 @@ class TestDeltabricksTableSpec:
         assert got.database_name == want.database_name
         assert got.columns == want.columns
         assert got.using == want.using
+
+    def test_to_create_table_ddl(self):
+
+        table_spec = DeltabricksTableSpec(
+            table_name="simple_table",
+            database_name="myprojectthree",
+            columns=[
+                {"featureOne": {"type": "int", "comment": "It's a feature"}},
+                {"featureTwo": {"type": "string", "comment": "It's another feature"}},
+            ],
+            using="delta",
+        )
+
+        DeltabricksBackend().sql("create database myprojectthree")
+        DeltabricksBackend().sql(table_spec.to_create_table_ddl())
+
+        returned = DeltabricksTableSpec.from_ddl_info(
+            DeltabricksBackend().get_ddl_info("myprojectthree", "simple_table")
+        )
+
+        assert returned.table_name == table_spec.table_name
+        assert returned.database_name == table_spec.database_name
+        assert returned.columns == table_spec.columns
+        assert returned.using == table_spec.using

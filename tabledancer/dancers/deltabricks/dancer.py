@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 from functools import wraps
-from typing import Any, Dict, Generator, List, Optional, Tuple
+from typing import Any, Dict, Final, Generator, List, Optional, Tuple
 
 from pyspark.sql import SparkSession
 
 from tabledancer.utils.misc import is_none_or_empty_string
+from tabledancer.utils.templating import Templater
+
+PATH_TO_TEMPLATES: Final[str] = "tabledancer/dancers/deltabricks/templates/"
+CREATE_TABLE_TEMPLATE: Final[str] = "create_table.sql.j2"
 
 
 class DeltabricksTableSpec:
@@ -50,7 +54,24 @@ class DeltabricksTableSpec:
         )
 
     def to_create_table_ddl(self):
-        raise NotImplementedError()
+        name = self.table_name
+        database = self.database_name
+        using = self.using
+        columns = []
+        for col in self.columns:
+            col_name = list(col.keys())[0]
+            col_type = col[col_name]["type"]
+            col_comment = col[col_name]["comment"]
+
+            columns.append((col_name, col_type, col_comment))
+
+        return Templater(PATH_TO_TEMPLATES).render_template(
+            CREATE_TABLE_TEMPLATE,
+            name=name,
+            database=database,
+            using=using,
+            columns=columns,
+        )
 
     def is_same(self, other: DeltabricksTableSpec) -> bool:
         raise NotImplementedError()

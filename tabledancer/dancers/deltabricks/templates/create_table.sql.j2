@@ -1,0 +1,6 @@
+CREATE TABLE `{{ database }}`.`{{ name }}` (
+  {%for n, t, c in columns %}
+    `{{n}}` {{t}} COMMENT "{{c}}" {{", " if not loop.last else ""}}
+  {% endfor %}
+)
+USING {{ using }}
