@@ -140,7 +140,7 @@ def action(m):
 
 
 class DeltabricksDancer:
-    def __init__(self, host: str, token: str, cluster_id: str, port: int) -> None:
+    def __init__(self) -> None:
         self.backend = DeltabricksBackend()
 
     @action
