@@ -74,7 +74,15 @@ class DeltabricksTableSpec:
         )
 
     def is_same(self, other: DeltabricksTableSpec) -> bool:
-        raise NotImplementedError()
+
+        return all(
+            [
+                self.table_name == other.table_name,
+                self.database_name == other.database_name,
+                self.columns == other.columns,
+                self.using == other.using,
+            ]
+        )
 
 
 class DeltabricksBackend:

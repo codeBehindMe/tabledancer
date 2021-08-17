@@ -171,3 +171,27 @@ class TestDeltabricksTableSpec:
         assert returned.database_name == table_spec.database_name
         assert returned.columns == table_spec.columns
         assert returned.using == table_spec.using
+
+    def test_is_same(self):
+
+        spec_1 = DeltabricksTableSpec(
+            table_name="simple_table",
+            database_name="myprojectthree",
+            columns=[
+                {"featureOne": {"type": "int", "comment": "It's a feature"}},
+                {"featureTwo": {"type": "string", "comment": "It's another feature"}},
+            ],
+            using="delta",
+        )
+
+        spec_2 = DeltabricksTableSpec(
+            table_name="simple_table",
+            database_name="myprojectthree",
+            columns=[
+                {"featureOne": {"type": "int", "comment": "It's a feature"}},
+                {"featureTwo": {"type": "int", "comment": "It's another feature"}},
+            ],
+            using="delta",
+        )
+
+        assert not spec_1.is_same(spec_2)
