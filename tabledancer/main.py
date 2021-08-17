@@ -1,3 +1,5 @@
+from tabledancer.dancers.deltabricks.dancer import DeltabricksDancer
+from tabledancer.utils.misc import read_yaml_file
 from fire import Fire
 
 from tabledancer.dancers.dancer import IDancer
@@ -16,14 +18,18 @@ def _databricks_dancer_handler(**kwargs) -> DatabricksDancer:
         print(f"Must provide {e}")
 
 
-dancers = {"databricks": _databricks_dancer_handler}
+dancers = {"databricks": _databricks_dancer_handler
+            , "deltabricks": DeltabricksDancer}
 
 
 class DanceStudio:
-    def dance(self, path_to_spec: str, dancer: IDancer, **kwargs):
+    def dance(self, path_to_spec: str, **kwargs):
         # FIXME: Docstring
-        dance_runner = dancers[dancer](**kwargs)
+    
+        choreograph = read_yaml_file(path_to_spec)
 
+        dancer = dancers[choreograph['backend']](**kwargs)
+        dancer.dance(choreograph)
 
 def app():
     # FIXME: Docstring
