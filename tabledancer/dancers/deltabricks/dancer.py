@@ -15,7 +15,21 @@ class DeltabricksTableSpec:
 
   @staticmethod
   def from_dict(d : Dict[str, Any]) -> DeltabricksTableSpec:
-    raise NotImplementedError()
+    """Creates a TableSpec by parsing a dictionary.
+
+    Args:
+        d (Dict[str, Any]): Dictionary containing table spec data.
+
+    Returns:
+        DeltabricksTableSpec: The constructed object.
+    """
+
+    return DeltabricksTableSpec(
+      table_name=d['name']
+      , database_name=d['database']
+      , columns=d['columns']
+      , using=d['using']
+    )
 
   @staticmethod
   def from_ddl(ddl: str) -> DeltabricksTableSpec:
