@@ -1,6 +1,5 @@
 import os
 import shutil
-from time import sleep
 from typing import Any, Dict
 
 import pyspark
@@ -63,6 +62,33 @@ class TestDeltabricksBackend:
         backend.sql(ddl)
 
         assert backend.table_exists("myproject", "simple_table")
+
+    def test_get_ddl_info_returns_dict(self, spark: SparkSession):
+
+        ddl = """CREATE TABLE myprojecttwo.simple_table (
+          featureOne int COMMENT "It's a feature"
+          , featureTwo string COMMENT "It's another feature"
+          ) 
+        USING DELTA
+        """
+        backend = DeltabricksBackend()
+        backend.sql("CREATE DATABASE myprojecttwo")
+
+        backend.sql(ddl)
+
+        ddl_info = backend.get_ddl_info("myprojecttwo", "simple_table")
+
+        assert isinstance(ddl_info, Dict)
+        assert ddl_info["table"] == "simple_table"
+        assert ddl_info["database"] == "myprojecttwo"
+        assert ddl_info["provider"].lower() == "delta"
+
+        assert ddl_info["columns"][0] == ("featureOne", "int", "It's a feature")
+        assert ddl_info["columns"][1] == (
+            "featureTwo",
+            "string",
+            "It's another feature",
+        )
 
 
 @pytest.mark.usefixtures("simple_choreograph", "spark")

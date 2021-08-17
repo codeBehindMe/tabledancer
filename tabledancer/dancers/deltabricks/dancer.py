@@ -90,7 +90,7 @@ class DeltabricksBackend:
     ) -> Generator[Tuple[str, str, str]]:
         col_info = (
             self.spark.sql(f"DESCRIBE TABLE {db_name}.{table_name}")
-            .where("data_type != null")
+            .where("data_type != ''")
             .collect()
         )
 
@@ -99,7 +99,7 @@ class DeltabricksBackend:
 
     def get_ddl_info(self, database_name: str, table_name: str) -> Dict[str, Any]:
 
-        ddl_info = self._get_table_col_info(database_name, table_name)
+        ddl_info = self._get_table_struct_info(database_name, table_name)
         ddl_info["columns"] = list(self._get_table_col_info(database_name, table_name))
 
         return ddl_info
