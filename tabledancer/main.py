@@ -6,7 +6,7 @@ from tabledancer.utils.misc import read_yaml_file
 
 
 
-dancers = {"deltabricks": DeltabricksDancer}
+dancers = {"databricks": DeltabricksDancer}
 
 
 class DanceStudio:
