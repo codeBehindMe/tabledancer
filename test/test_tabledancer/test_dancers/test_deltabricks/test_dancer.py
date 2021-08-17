@@ -1,7 +1,7 @@
 import os
 import shutil
-from typing import Any, Dict
 from time import sleep
+from typing import Any, Dict
 
 import pyspark
 import pytest
@@ -38,7 +38,6 @@ def spark() -> SparkSession:
     )
 
     spark = configure_spark_with_delta_pip(builder).getOrCreate()
-    
 
     yield spark
 
@@ -47,23 +46,24 @@ def spark() -> SparkSession:
     if os.path.isdir("spark-warehouse"):
         shutil.rmtree("spark-warehouse")
 
+
 @pytest.mark.usefixtures("spark")
 class TestDeltabricksBackend:
+    def test_check_if_table_exists_returns_bool(self, spark: SparkSession):
 
-  def test_check_if_table_exists_returns_bool(self, spark: SparkSession):
-    
-    ddl = """CREATE TABLE myproject.simple_table (
+        ddl = """CREATE TABLE myproject.simple_table (
           featureOne int COMMENT "It's a feature"
           , featureTwo string COMMENT "It's another feature"
           ) 
         USING DELTA
         """
-    backend = DeltabricksBackend()
-    backend.sql("CREATE DATABASE myproject")
+        backend = DeltabricksBackend()
+        backend.sql("CREATE DATABASE myproject")
 
-    backend.sql(ddl)
+        backend.sql(ddl)
 
-    assert backend.table_exists("myproject","simple_table")
+        assert backend.table_exists("myproject", "simple_table")
+
 
 @pytest.mark.usefixtures("simple_choreograph", "spark")
 class TestDeltabricksTableSpec:
@@ -93,7 +93,6 @@ class TestDeltabricksTableSpec:
 
         spark.sql("drop database if exists myproject cascade")
         spark.sql("CREATE DATABASE myprojectone")
-        
 
         ddl = """CREATE TABLE myprojectone.simple_table (
          featureOne int COMMENT "It's a feature"
