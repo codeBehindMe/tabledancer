@@ -68,10 +68,6 @@ class DeltabricksBackend:
             database_name, table_name
         )
 
-    def get_ddl(self, database_name: str, table_name: str) -> str:
-
-        return self.sql(f"SHOW TABLE EXTENDED IN {database_name} LIKE '{table_name}'")
-
     def _get_table_struct_info(self, db_name: str, table_name: str) -> Dict[str, Any]:
         struct_info = (
             self.spark.sql(f"SHOW TABLE EXTENDED in {db_name} LIKE '{table_name}'")
@@ -149,7 +145,9 @@ class DeltabricksDancer:
             self.backend.sql(vc_table_spec.to_create_table_ddl())
 
         backend_table_spec = DeltabricksTableSpec.from_ddl_info(
-            self.backend.get_ddl(vc_table_spec.database_name, vc_table_spec.table_name)
+            self.backend.get_ddl_info(
+                vc_table_spec.database_name, vc_table_spec.table_name
+            )
         )
 
         if not vc_table_spec.is_same(backend_table_spec):
