@@ -1,24 +1,12 @@
 from fire import Fire
 
-from tabledancer.dancers.dancer import IDancer
-from tabledancer.dancers.databricks.dancer import DatabricksDancer
 from tabledancer.dancers.deltabricks.dancer import DeltabricksDancer
 from tabledancer.utils.misc import read_yaml_file
 
 
-def _databricks_dancer_handler(**kwargs) -> DatabricksDancer:
-    # FIXME: Docstring
-    try:
-        host = kwargs["host"]
-        token = kwargs["token"]
-        cluster_id = kwargs["cluster-id"]
-        port = kwargs["port"]
-        return DatabricksDancer(host, token, cluster_id, port)
-    except KeyError as e:
-        print(f"Must provide {e}")
 
 
-dancers = {"databricks": _databricks_dancer_handler, "deltabricks": DeltabricksDancer}
+dancers = {"deltabricks": DeltabricksDancer}
 
 
 class DanceStudio:
