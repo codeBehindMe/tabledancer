@@ -3,9 +3,6 @@ from fire import Fire
 from tabledancer.dancers.deltabricks.dancer import DeltabricksDancer
 from tabledancer.utils.misc import read_yaml_file
 
-
-
-
 dancers = {"databricks": DeltabricksDancer}
 
 
