@@ -4,7 +4,10 @@ from tabledancer.dancers.deltabricks.dancer import DeltabricksDancer
 from tabledancer.dancers.deltaspark.dancer import DeltaSparkDancer
 from tabledancer.utils.misc import read_yaml_file
 
-dancers = {"databricks": DeltabricksDancer.with_default_backend, "deltaspark": DeltaSparkDancer}
+dancers = {
+    "databricks": DeltabricksDancer.with_default_backend,
+    "deltaspark": DeltaSparkDancer,
+}
 
 
 class DanceStudio:
