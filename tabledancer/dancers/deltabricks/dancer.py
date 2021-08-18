@@ -140,8 +140,12 @@ def action(m):
 
 
 class DeltabricksDancer:
-    def __init__(self) -> None:
-        self.backend = DeltabricksBackend()
+    def __init__(self, backend ) -> None:
+        self.backend = backend
+
+    @staticmethod
+    def with_default_backend():
+      return DeltabricksDancer(DeltabricksBackend())
 
     @action
     def DropCreateOnSchemaChange(
