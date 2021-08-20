@@ -1,3 +1,5 @@
+import sys
+
 from fire import Fire
 
 from tabledancer.dancers.deltabricks.dancer import DeltabricksDancer
@@ -18,7 +20,12 @@ class DanceStudio:
         app_logger.info(f"dancing {path_to_spec}")
         choreograph = read_yaml_file(path_to_spec)
 
-        dancer = dancers[choreograph["backend"]](**kwargs)
+        backend = choreograph["backend"]
+        try:
+            dancer = dancers[backend](**kwargs)
+        except KeyError:
+            app_logger.error(f"unsupported backend: {backend}")
+            sys.exit(1)
         dancer.dance(choreograph)
 
 
