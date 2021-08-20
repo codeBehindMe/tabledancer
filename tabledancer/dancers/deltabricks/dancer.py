@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import sys
 from functools import wraps
 from typing import Any, Dict, Final, Generator, List, Optional, Tuple
 
 from pyspark.sql import SparkSession
 
+from tabledancer.utils.logger import app_logger
 from tabledancer.utils.misc import is_none_or_empty_string
 from tabledancer.utils.templating import Templater
 
@@ -172,11 +174,14 @@ class DeltabricksDancer:
 
         vc_table_spec = DeltabricksTableSpec.from_dict(choreograph["table_spec"])
 
+        app_logger.info("checking if table exists")
         if not self.backend.table_exists(
             vc_table_spec.database_name, vc_table_spec.table_name
         ):
+            app_logger.info("could not find table in backend, running create table ddl")
             return self.backend.sql(vc_table_spec.to_create_table_ddl())
 
+        app_logger.info("extracting ddl info from backend")
         backend_table_spec = DeltabricksTableSpec.from_ddl_info(
             self.backend.get_ddl_info(
                 vc_table_spec.database_name, vc_table_spec.table_name
@@ -184,12 +189,21 @@ class DeltabricksDancer:
         )
 
         if not vc_table_spec.is_same(backend_table_spec):
+            app_logger.info("backend spec differs from yaml spec")
 
-            action = getattr(self, choreograph["life_cycle_policy"]["policy"])
+            try:
+                action_name = choreograph["life_cycle_policy"]["policy"]
+                action = getattr(self, action_name)
+            except AttributeError:
+                app_logger.error(f"{action_name} unsupported in dancer")
+                sys.exit(1)
+
+            app_logger.info(f"invoking action {action.__name__}")
             action(
                 vc_table_spec,
                 backend_table_spec,
                 choreograph["life_cycle_policy"]["properties"],
             )
+        app_logger.info("backend spec matches yaml spec, taking no action")
 
         return
