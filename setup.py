@@ -14,20 +14,20 @@ requirements = None
 class InstallCommand(install):
     description = "Installs tabledancer"
     user_options = install.user_options + [
-        ("dancetime=", None, "Specify the runtime to install"),
+        ("style=", None, "Specify the style to install"),
     ]
 
     def initialize_options(self) -> None:
         install.initialize_options(self)
-        self.dancetime = None
+        self.style = None
 
     def finalize_options(self) -> None:
-        print(self.dancetime)
+        print(self.style)
         install.finalize_options(self)
 
     def run(self) -> None:
         try:
-            requirements = req_spec[self.dancetime]
+            requirements = req_spec[self.style]
         except KeyError as ke:
             raise ValueError("Unsupported runtime").with_traceback(ke.__traceback__)
 
