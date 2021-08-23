@@ -1,0 +1,16 @@
+backend: deltaspark
+life_cycle_policy:
+  policy: DropCreateOnSchemaChange
+  properties: null
+table_spec:
+  name: simple_table
+  database: tdtest
+  comment: This is a simple table
+  columns:
+    - featureOne:
+        type: int
+        comment: It's a feature
+    - featureTwo:
+        type: string
+        comment: It's another feature
+  using: DELTA
