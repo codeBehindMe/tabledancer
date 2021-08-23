@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-set -euxo pipefail
+set -exo pipefail
 
 echo "Installing requirements"
 python setup.py install --user --style databricks8.1
