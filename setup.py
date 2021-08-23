@@ -1,33 +1,34 @@
+import subprocess
+import sys
+
 from setuptools import find_packages, setup
 from setuptools.command.install import install
 
-from tabledancer.dancers.deltabricks.dancer import DeltabricksDancer
-
+BASE_REQUIREMENTS = ["fire", "jinja2", "pyyaml"]
 req_spec = {
-    "deltaspark": ["pyspark", "delta-spark", "jinja2"],
-    "databricks8.1": ["databricks==8.1", "jinja2"],
+    "deltaspark": ["pyspark", "delta-spark"] + BASE_REQUIREMENTS,
+    "databricks8.1": ["databricks==8.1"] + BASE_REQUIREMENTS,
 }
-
-requirements = None
 
 
 class InstallCommand(install):
     description = "Installs tabledancer"
     user_options = install.user_options + [
-        ("dancetime=", None, "Specify the runtime to install"),
+        ("style=", None, "Specify the style to install"),
     ]
 
     def initialize_options(self) -> None:
         install.initialize_options(self)
-        self.dancetime = None
+        self.style = None
 
     def finalize_options(self) -> None:
-        print(self.dancetime)
         install.finalize_options(self)
 
     def run(self) -> None:
         try:
-            requirements = req_spec[self.dancetime]
+            requirements = req_spec[self.style]
+            for req in requirements:
+                subprocess.check_call([sys.executable, "-m", "pip", "install", req])
         except KeyError as ke:
             raise ValueError("Unsupported runtime").with_traceback(ke.__traceback__)
 
@@ -37,7 +38,6 @@ class InstallCommand(install):
 setup(
     name="tabledancer",
     packages=find_packages(exclude=["test"]),
-    install_requires=requirements,
     entry_points={"console_scripts": ["tabledancer=tabledancer.main:app"]},
     cmdclass={"install": InstallCommand},
 )
