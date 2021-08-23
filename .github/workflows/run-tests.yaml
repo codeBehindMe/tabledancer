@@ -44,4 +44,6 @@ jobs:
           DATABRICKS_API_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
           DATABRICKS_CLUSTER_ID: ${{ secrets.DATABRICKS_CLUSTER_ID }}
       - run: ./rehearsals/databricks8.1/drop_create/routine.sh
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
