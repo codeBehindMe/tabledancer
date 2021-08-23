@@ -4,12 +4,11 @@ import sys
 from setuptools import find_packages, setup
 from setuptools.command.install import install
 
+BASE_REQUIREMENTS = ["fire", "jinja2", "pyyaml"]
 req_spec = {
-    "deltaspark": ["fire", "pyspark", "delta-spark", "jinja2"],
-    "databricks8.1": ["databricks==8.1", "jinja2"],
+    "deltaspark": ["pyspark", "delta-spark"] + BASE_REQUIREMENTS,
+    "databricks8.1": ["databricks==8.1"] + BASE_REQUIREMENTS,
 }
-
-requirements = None
 
 
 class InstallCommand(install):
