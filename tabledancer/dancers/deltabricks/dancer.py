@@ -199,7 +199,7 @@ class DeltabricksDancer:
                 sys.exit(1)
 
             app_logger.info(f"invoking action {action.__name__}")
-            action(
+            return action(
                 vc_table_spec,
                 backend_table_spec,
                 choreograph["life_cycle_policy"]["properties"],
