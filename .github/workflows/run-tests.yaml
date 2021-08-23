@@ -26,4 +26,4 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
-      - run: python setup.py install --user --style deltaspark
+      - run: ./rehearsals/deltaspark/drop_create/routine.sh
