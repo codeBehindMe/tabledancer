@@ -27,7 +27,7 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
       - run: ./rehearsals/deltaspark/drop_create/routine.sh
-  databricks8.1-walkthrough:
+  databricks81-walkthrough:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
