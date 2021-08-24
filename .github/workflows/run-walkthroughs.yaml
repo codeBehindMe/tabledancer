@@ -16,8 +16,9 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
+      - shell: bash
         env:
           DATABRICKS_ADDRESS: ${{ secrets.DATABRICKS_ADDRESS }}
           DATABRICKS_API_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
           DATABRICKS_CLUSTER_ID: ${{ secrets.DATABRICKS_CLUSTER_ID }}
-      - run: ./rehearsals/databricks8.1/drop_create/routine.sh
+        run: ./rehearsals/databricks8.1/drop_create/routine.sh
