@@ -1,12 +1,29 @@
-# Tabledancer
-
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![run-tests](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-tests.yaml/badge.svg)](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-tests.yaml)
+[![run-walkthroughs](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-walkthroughs.yaml/badge.svg)](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-walkthroughs.yaml)
+
+![logo](https://storage.googleapis.com/tabledancermedia/tabledancer_header_open_blush_large.png)
+
+---
+> Tabledancer is a simple application which allows you to manage table lifecycles 
+> based on YAML inside CICD.
+
+## Concept
+
+Tabledancer is a lightweight application aimed at specifically managing the 
+lifecycle of tables specified using **DDLs**. It is by no means meant to be a
+comprehensive model management system such as *dbt*. 
+![concept](https://storage.googleapis.com/tabledancermedia/tabledancer_concept_diagram.png)
 
 
-Simple Table Lifecycle Mangement for Small projects.
+### How does it work?
 
-![Tabledancer](https://images.unsplash.com/photo-1540324155974-7523202daa3f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=658&q=80)
+As shown in the conceptual diagram above, tabledancer expects to see two things
+in your git repository. The DDL of the table implemented as a YAML and a 
+`lifecycle specification` which is also a yaml description which tells 
+tabledancer how to actually react if there is a change in the DDL. These two
+are typically implemented in a single yaml file. 
 
 ## Installation
 
