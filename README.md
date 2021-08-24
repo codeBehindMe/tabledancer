@@ -1,11 +1,12 @@
-# Tabledancer
-
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 [![run-tests](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-tests.yaml/badge.svg)](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-tests.yaml)
 [![run-walkthroughs](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-walkthroughs.yaml/badge.svg)](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-walkthroughs.yaml)
 
+---
 ![logo](https://storage.googleapis.com/tabledancermedia/tabledancer_header_open_black.png)
+
+---
 Tabledancer is a simple application which allows you to manage table lifecycles 
 based on YAML inside CICD.
 
