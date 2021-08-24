@@ -9,7 +9,21 @@
 > Tabledancer is a simple application which allows you to manage table lifecycles 
 > based on YAML inside CICD.
 
+## Concept
+
+Tabledancer is a lightweight application aimed at specifically managing the 
+lifecycle of tables specified using **DDLs**. It is by no means meant to be a
+comprehensive model management system such as *dbt*. 
 ![concept](https://storage.googleapis.com/tabledancermedia/tabledancer_concept_diagram.png)
+
+
+### How does it work?
+
+As shown in the conceptual diagram above, tabledancer expects to see two things
+in your git repository. The DDL of the table implemented as a YAML and a 
+`lifecycle specification` which is also a yaml description which tells 
+tabledancer how to actually react if there is a change in the DDL. These two
+are typically implemented in a single yaml file. 
 
 ## Installation
 
