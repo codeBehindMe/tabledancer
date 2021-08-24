@@ -5,7 +5,7 @@
 [![run-tests](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-tests.yaml/badge.svg)](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-tests.yaml)
 [![run-walkthroughs](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-walkthroughs.yaml/badge.svg)](https://github.com/codeBehindMe/tabledancer/actions/workflows/run-walkthroughs.yaml)
 
-![logo](https://storage.googleapis.com/tabledancermedia/tabledancer_header_open_candy.png)
+![logo](https://storage.googleapis.com/tabledancermedia/tabledancer_header_open_black.png)
 Tabledancer is a simple application which allows you to manage table lifecycles 
 based on YAML inside CICD.
 
