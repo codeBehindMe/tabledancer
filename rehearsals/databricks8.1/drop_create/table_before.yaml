@@ -1,4 +1,4 @@
-backend: deltabricks
+backend: databricks
 life_cycle_policy:
   policy: DropCreateOnSchemaChange
   properties: null
