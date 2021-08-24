@@ -23,7 +23,40 @@ As shown in the conceptual diagram above, tabledancer expects to see two things
 in your git repository. The DDL of the table implemented as a YAML and a 
 `lifecycle specification` which is also a yaml description which tells 
 tabledancer how to actually react if there is a change in the DDL. These two
-are typically implemented in a single yaml file. 
+are typically implemented in a single yaml file. This yaml file is given the 
+name **choreograph**. 
+
+Let's have a look at a simple sample choreograph file below. 
+
+```yaml
+backend: databricks 
+life_cycle_policy:
+  policy: DropCreateOnSchemaChange
+  properties: null
+table_spec:
+  name: simple_table
+  database: tdtest
+  comment: This is a simple table
+  columns:
+    - featureOne:
+        type: int
+        comment: It's a feature
+    - featureTwo:
+        type: string
+        comment: It's another feature
+  using: DELTA``yaml
+```
+
+The **backend** tag simply specifies which backend the target table resides in.
+This tells tabledancer to use the correct **dancer**, which is basically the 
+backend implementation. 
+
+The **life_cycle_policy** field defines what to do when there is a difference
+between the DDL spec in git compared to what's available in the database. The 
+available options and fields are implemented by the **dancer**. 
+
+Finally the **table_spec** is simply a yaml representation of the DDL file. This
+can be arbitrarily complex as stipulated by the **dancer**. 
 
 ## Installation
 
