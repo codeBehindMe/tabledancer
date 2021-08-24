@@ -6,8 +6,10 @@
 ![logo](https://storage.googleapis.com/tabledancermedia/tabledancer_header_open_blush_large.png)
 
 ---
-Tabledancer is a simple application which allows you to manage table lifecycles 
-based on YAML inside CICD.
+> Tabledancer is a simple application which allows you to manage table lifecycles 
+> based on YAML inside CICD.
+
+![concept](https://storage.googleapis.com/tabledancermedia/tabledancer_concept_diagram.png)
 
 ## Installation
 
