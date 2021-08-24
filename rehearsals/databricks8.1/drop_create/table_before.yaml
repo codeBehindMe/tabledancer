@@ -3,8 +3,8 @@ life_cycle_policy:
   policy: DropCreateOnSchemaChange
   properties: null
 table_spec:
-  name: tdtest
-  database: myproject
+  name: simple_table
+  database: tdtest
   comment: This is a simple table
   columns:
     - featureOne:
