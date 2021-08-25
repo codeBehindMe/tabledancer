@@ -2,7 +2,7 @@ name: run-walkthroughs
 on:
   push:
     branches:
-      master
+      main
 jobs:
   databricks81-walkthrough:
     runs-on: ubuntu-latest
