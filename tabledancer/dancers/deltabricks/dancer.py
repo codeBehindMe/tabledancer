@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+from os.path import abspath
 from functools import wraps
 from typing import Any, Dict, Final, Generator, List, Optional, Tuple
 
@@ -10,7 +11,7 @@ from tabledancer.utils.logger import app_logger
 from tabledancer.utils.misc import is_none_or_empty_string
 from tabledancer.utils.templating import Templater
 
-PATH_TO_TEMPLATES: Final[str] = "tabledancer/dancers/deltabricks/templates/"
+PATH_TO_TEMPLATES: Final[str] = abspath("tabledancer/dancers/deltabricks/templates/")
 CREATE_TABLE_TEMPLATE: Final[str] = "create_table.sql.j2"
 
 
