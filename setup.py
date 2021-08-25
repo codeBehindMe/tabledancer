@@ -41,4 +41,5 @@ setup(
     entry_points={"console_scripts": ["tabledancer=tabledancer.main:app"]},
     cmdclass={"install": InstallCommand},
     package_data = {'':['*.j2']}
+    , include_package_data = True
 )
