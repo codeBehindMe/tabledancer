@@ -1,1 +1,3 @@
 global-include *.j2
+include *.j2
+recursive-include tabledancer *.j2
