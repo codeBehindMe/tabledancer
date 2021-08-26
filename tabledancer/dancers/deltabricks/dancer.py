@@ -11,7 +11,8 @@ from tabledancer.utils.logger import app_logger
 from tabledancer.utils.misc import is_none_or_empty_string
 from tabledancer.utils.templating import PackagedTemplater, Templater
 
-TEMPLATES_PACKAGE_PATH: Final[str] = "tabledancer/deltabricks/templates"
+TEMPLATES_PACKAGE_NAME: Final[str] = "tabledancer.dancers.deltabricks"
+TEMPLATES_PACKAGE_PATH: Final[str] = "templates"
 CREATE_TABLE_TEMPLATE: Final[str] = "create_table.sql.j2"
 
 
@@ -68,7 +69,9 @@ class DeltabricksTableSpec:
 
             columns.append((col_name, col_type, col_comment))
 
-        return PackagedTemplater("tabledancer.dancers.deltabricks", "templates").render_template(
+        return PackagedTemplater(
+            TEMPLATES_PACKAGE_NAME, TEMPLATES_PACKAGE_PATH
+        ).render_template(
             CREATE_TABLE_TEMPLATE,
             name=name,
             database=database,
