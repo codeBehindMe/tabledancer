@@ -68,7 +68,7 @@ class DeltabricksTableSpec:
 
             columns.append((col_name, col_type, col_comment))
 
-        return PackagedTemplater("tabledancer", TEMPLATES_PACKAGE_PATH).render_template(
+        return PackagedTemplater("tabledancer.dancers.deltabricks", "templates").render_template(
             CREATE_TABLE_TEMPLATE,
             name=name,
             database=database,
