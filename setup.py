@@ -40,4 +40,5 @@ setup(
     packages=find_packages(exclude=["test"]),
     entry_points={"console_scripts": ["tabledancer=tabledancer.main:app"]},
     cmdclass={"install": InstallCommand},
+    include_package_data=True,
 )
